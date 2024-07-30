@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rwad/dummy_projects/whats_app/whats_app_screen.dart';
+
+import 'dummy_projects/whats_app/whats_app_screen.dart';
 
 void main() {
   runApp(const MyApp());

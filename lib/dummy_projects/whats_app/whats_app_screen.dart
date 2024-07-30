@@ -6,9 +6,15 @@ import '../../const.dart';
 
 class WhatsAppScreen extends StatelessWidget {
   WhatsAppScreen({super.key});
+  List<ChatModel> chatList = [];
 
   @override
   Widget build(BuildContext context) {
+    // for (var item in jsonList) {
+    //   final chatModel = ChatModel.fromJson(item);
+    //   chatList.add(chatModel);
+    // }
+    chatList = jsonList.map((e) => ChatModel.fromJson(e)).toList();
     return Scaffold(
       appBar: _buildAppBar(),
       floatingActionButton: FloatingActionButton(
@@ -38,11 +44,7 @@ class WhatsAppScreen extends StatelessWidget {
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 20,
                 ),
-                itemBuilder: (context, index) => _chatItem(
-                  image: chatList[index].image!,
-                  name: chatList[index].name!,
-                  time: chatList[index].createdAt!,
-                ),
+                itemBuilder: (context, index) => _chatItem(chatList[index]),
               ),
             )
           ],
@@ -51,91 +53,14 @@ class WhatsAppScreen extends StatelessWidget {
     );
   }
 
-  List<ChatModel> chatList = [
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "12:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "12:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "12:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "12:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "12:00 PM",
-    ),
-    ChatModel(
-      name: "Mohamed Allam",
-      image: image2,
-      createdAt: "11:00 PM",
-    ),
-    ChatModel(
-      name: "Alaa Allam",
-      image: image3,
-      createdAt: "02:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "03:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image2,
-      createdAt: "04:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image3,
-      createdAt: "05:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "06:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "06:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "06:00 PM",
-    ),
-    ChatModel(
-      name: "Ahmed Allam",
-      image: image1,
-      createdAt: "06:00 PM",
-    ),
-  ];
-
-  Widget _chatItem({
-    required String image,
-    required String name,
-    required String time,
-  }) {
+  Widget _chatItem(ChatModel model) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
           backgroundColor: Colors.orange,
           backgroundImage: NetworkImage(
-            image,
+            model.image!,
           ),
           radius: 22,
         ),
@@ -146,37 +71,68 @@ class WhatsAppScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              name,
+              model.name!,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Icon(
-                  CupertinoIcons.videocam_fill,
-                  size: 20,
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  "Video",
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                )
-              ],
-            ),
+            _messageType(model.messageType!, text: "Hello from egypt"),
           ],
         ),
         Spacer(),
-        Text(time)
+        Text(model.createdAt!)
       ],
     );
+  }
+
+  Widget _messageType(
+    MessageType messageType, {
+    String? text,
+  }) {
+    if (messageType == MessageType.VIDEO) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Icon(
+            CupertinoIcons.videocam_fill,
+            size: 20,
+            color: Colors.grey,
+          ),
+          SizedBox(
+            width: 4,
+          ),
+          Text(
+            "Video",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          )
+        ],
+      );
+    } else if (messageType == MessageType.GIF) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Icon(
+            Icons.gif,
+            size: 20,
+            color: Colors.grey,
+          ),
+          SizedBox(
+            width: 4,
+          ),
+          Text(
+            "GIF",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          )
+        ],
+      );
+    } else {
+      return Text(text ?? "");
+    }
   }
 
   Widget _buildCustomChats({
