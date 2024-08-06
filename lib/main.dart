@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dummy_projects/whats_app/whats_app_screen.dart';
+import 'dummy_projects/messanger/messanger_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WhatsAppScreen(),
+      home: MessangerScreen(),
     );
   }
 }
