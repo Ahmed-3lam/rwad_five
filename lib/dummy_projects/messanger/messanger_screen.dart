@@ -6,77 +6,83 @@ class MessangerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _searchField(),
-              Container(
-                height: 40,
-                child: ListView.separated(
-                  itemCount: 100,
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  separatorBuilder: (context, index) => Container(
-                    width: 20,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _searchField(),
+                Container(
+                  height: 40,
+                  child: ListView.separated(
+                    itemCount: 100,
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => Container(
+                      width: 20,
+                    ),
+                    itemBuilder: (context, index) => _statusItem(),
                   ),
-                  itemBuilder: (context, index) => _statusItem(),
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              ListView.separated(
-                  itemCount: 100,
-                  shrinkWrap: true,
-                  separatorBuilder: (c, i) => SizedBox(
-                        height: 20,
-                      ),
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (c, i) => Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundImage:
-                                AssetImage("assets/images/man.jpg"),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Alaa ohamed",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Container(
-                                width: 60,
-                                child: Text(
-                                  "Welcome to our new team ",
+                SizedBox(
+                  height: 30,
+                ),
+                ListView.separated(
+                    itemCount: 5,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    separatorBuilder: (c, i) => SizedBox(
+                          height: 20,
+                        ),
+                    // physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (c, i) => Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage:
+                                  AssetImage("assets/images/man.jpg"),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Alaa ohamed",
                                   style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 12,
-                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.grey,
-                          )
-                        ],
-                      )),
-            ],
+                                Container(
+                                  width: 60,
+                                  child: Text(
+                                    "Welcome to our new team ",
+                                    style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.grey,
+                            )
+                          ],
+                        )),
+              ],
+            ),
           ),
         ),
       ),
