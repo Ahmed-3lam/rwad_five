@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dummy_projects/bmi_calc/bmi_calc_screen.dart';
+import 'dummy_projects/ecommerce/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BmiCalcScreen(),
+      home: SplashScreen(),
     );
   }
 }

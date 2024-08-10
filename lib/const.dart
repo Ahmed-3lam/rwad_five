@@ -6,7 +6,7 @@ const String image3 =
 List namesList = ["Alaa Mohamed", "Ahmed Mahgg", " Hhhgggh"];
 List imagesList = [image1, image2, image3];
 List timesList = ["11:30 PM", "12:00 AM", "02:00 PM"];
-
+const imagePath = "assets/images/";
 List<Map> jsonList = [
   {
     "name": "Ahmed Allam",

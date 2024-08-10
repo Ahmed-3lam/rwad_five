@@ -193,7 +193,7 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
