@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rwad/const.dart';
-import 'package:rwad/dummy_projects/ecommerce/auth/auth_screen.dart';
+import 'package:rwad/dummy_projects/ecommerce/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 4)).then((val) {
       time.cancel();
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AuthScreen(),
+        builder: (context) => OnboardingScreen(),
       ));
     });
     // time.cancel();
