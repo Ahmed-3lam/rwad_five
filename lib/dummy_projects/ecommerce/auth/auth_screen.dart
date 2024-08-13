@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:rwad/const.dart';
+import 'package:rwad/dummy_projects/ecommerce/login/login_screen.dart';
 
 import '../const/kcolors.dart';
 
@@ -67,7 +69,17 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
                 Spacer(),
-                _btn(text: "Continue with Email or Phone"),
+                _btn(
+                  text: "Continue with Email or Phone",
+                  onTap: () {
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (context) => LoginScreen(),
+                    // ));
+                    Get.to(
+                      LoginScreen(),
+                    );
+                  },
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -86,19 +98,23 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget _btn({
     required String text,
     bool isSecond = false,
+    void Function()? onTap,
   }) {
-    return Container(
-      height: 56,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-              color: isSecond ? Colors.black : Colors.white, fontSize: 16),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 56,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+                color: isSecond ? Colors.black : Colors.white, fontSize: 16),
+          ),
         ),
-      ),
-      decoration: BoxDecoration(
-        color: isSecond ? Colors.white : Kcolors.primaryColor,
-        borderRadius: BorderRadius.circular(15),
+        decoration: BoxDecoration(
+          color: isSecond ? Colors.white : Kcolors.primaryColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
     );
   }

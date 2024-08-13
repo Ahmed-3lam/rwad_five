@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:rwad/dummy_projects/ecommerce/auth/auth_screen.dart';
 
 import '../../../const.dart';
@@ -18,9 +19,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       _index++;
       print(_index.toString() + "===========");
     } else {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AuthScreen(),
-      ));
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => AuthScreen()),
+      //   (Route<dynamic> route) => false,
+      // );
+      Get.offAll(AuthScreen());
     }
 
     setState(() {});
