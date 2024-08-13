@@ -24,8 +24,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: themeData(),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
   }
+}
+
+ThemeData themeData() {
+  return ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+    border: InputBorder.none,
+    fillColor: Colors.grey[200],
+    filled: true,
+  ));
 }
