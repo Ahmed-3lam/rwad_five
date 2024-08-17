@@ -1,13 +1,18 @@
 import 'package:hive/hive.dart';
+import 'package:rwad/dummy_projects/note/note_model.dart';
 
 class NoteHiveHelper {
   static const noteBox = "NOTE_BOX";
   static const noteKey = "NOTE_Key";
   static List<String> noteList = [];
+  static List<NoteModel> noteList2 = [];
 
   static void addNote(String text) {
     noteList.add(text);
-    Hive.box(noteBox).put(noteKey, noteList);
+    Hive.box(noteBox).put(
+      noteKey,
+      noteList,
+    );
   }
 
   static void updateNote({
@@ -29,7 +34,9 @@ class NoteHiveHelper {
   }
 
   static void getNotes() {
-    noteList = Hive.box(noteBox).get(noteKey);
+    noteList = Hive.box(noteBox).get(
+      noteKey,
+    );
   }
 }
 
