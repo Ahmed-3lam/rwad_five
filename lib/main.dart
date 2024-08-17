@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rwad/dummy_projects/ecommerce/splash/splash_screen.dart';
+
+import 'dummy_projects/note/note_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: themeData(),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: NoteScreen(),
     );
   }
 }
