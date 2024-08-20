@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rwad/dummy_projects/bmi_calc/cubit/bmi_cubit.dart';
 
 enum Gender {
   MALE,
   FEMALE,
 }
 
-class BmiCalcScreen extends StatefulWidget {
-  const BmiCalcScreen({super.key});
-
-  @override
-  State<BmiCalcScreen> createState() => _BmiCalcScreenState();
-}
-
-class _BmiCalcScreenState extends State<BmiCalcScreen> {
-  Gender selectedGender = Gender.MALE;
-  double selectedHeight = 180;
-  int selectedWeight = 0;
-  int selectedAge = 0;
-
+class BmiCalcScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<BmiCubit>();
     return Scaffold(
       backgroundColor: Color(0xFF0C1232),
       appBar: AppBar(
@@ -44,33 +35,33 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Expanded(
-                flex: 4,
-                child: Row(
-                  children: [
-                    _genderItem(
-                      "MALE",
-                      isSelected: selectedGender == Gender.MALE,
-                      onTap: () {
-                        selectedGender = Gender.MALE;
-                        setState(() {});
-                      },
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    _genderItem(
-                      "FEMALE",
-                      isSelected: selectedGender == Gender.FEMALE,
-                      onTap: () {
-                        selectedGender = Gender.FEMALE;
-                        setState(
-                          () {},
-                        );
-                      },
-                    ),
-                  ],
-                )),
+            BlocBuilder<BmiCubit, BmiState>(
+              builder: (context, state) {
+                return Expanded(
+                    flex: 4,
+                    child: Row(
+                      children: [
+                        _genderItem(
+                          "MALE",
+                          isSelected: cubit.selectedGender == Gender.MALE,
+                          onTap: () {
+                            cubit.changeGender(Gender.MALE);
+                          },
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        _genderItem(
+                          "FEMALE",
+                          isSelected: cubit.selectedGender == Gender.FEMALE,
+                          onTap: () {
+                            cubit.changeGender(Gender.FEMALE);
+                          },
+                        ),
+                      ],
+                    ));
+              },
+            ),
             SizedBox(
               height: 20,
             ),
@@ -93,13 +84,17 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                          selectedHeight.toStringAsFixed(0),
-                          style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        BlocBuilder<BmiCubit, BmiState>(
+                          builder: (context, state) {
+                            return Text(
+                              cubit.selectedHeight.toStringAsFixed(0),
+                              style: TextStyle(
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
                         ),
                         Text(
                           "CM",
@@ -111,15 +106,18 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
                         ),
                       ],
                     ),
-                    Slider(
-                      min: 100,
-                      max: 220,
-                      value: selectedHeight,
-                      onChanged: (val) {
-                        selectedHeight = val;
-                        setState(() {});
+                    BlocBuilder<BmiCubit, BmiState>(
+                      builder: (context, state) {
+                        return Slider(
+                          min: 100,
+                          max: 220,
+                          value: cubit.selectedHeight,
+                          onChanged: (val) {
+                            cubit.changeHeight(val);
+                          },
+                          activeColor: Colors.red,
+                        );
                       },
-                      activeColor: Colors.red,
                     ),
                   ],
                 ),
@@ -134,12 +132,14 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
                   children: [
                     _buildItemThree(
                       "Weight",
+                      cubit,
                     ),
                     SizedBox(
                       width: 20,
                     ),
                     _buildItemThree(
                       "Age",
+                      cubit,
                     ),
                   ],
                 )),
@@ -148,7 +148,8 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
             ),
             InkWell(
               onTap: () {
-                double bmi = selectedWeight / ((selectedHeight / 100) * 2);
+                double bmi =
+                    cubit.selectedWeight / ((cubit.selectedHeight / 100) * 2);
                 String message;
                 if (bmi < 18.5) {
                   message = 'Underweight';
@@ -200,8 +201,9 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
     );
   }
 
-  Expanded _buildItemThree(
+  Widget _buildItemThree(
     String text,
+    BmiCubit cubit,
   ) {
     return Expanded(
       child: Container(
@@ -216,15 +218,19 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              text == "Weight"
-                  ? selectedWeight.toString()
-                  : selectedAge.toString(),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-              ),
+            BlocBuilder<BmiCubit, BmiState>(
+              builder: (context, state) {
+                return Text(
+                  text == "Weight"
+                      ? cubit.selectedWeight.toString()
+                      : cubit.selectedAge.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 10,
@@ -236,12 +242,7 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
                   shape: CircleBorder(),
                   mini: true,
                   onPressed: () {
-                    if (text == "Weight") {
-                      selectedWeight--;
-                    } else {
-                      selectedAge--;
-                    }
-                    setState(() {});
+                    cubit.minWeightOrAge(text);
                   },
                   child: Icon(Icons.remove),
                 ),
@@ -252,12 +253,7 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
                   shape: CircleBorder(),
                   mini: true,
                   onPressed: () {
-                    if (text == "Weight") {
-                      selectedWeight++;
-                    } else {
-                      selectedAge++;
-                    }
-                    setState(() {});
+                    cubit.plusWeightOrAge(text);
                   },
                   child: Icon(Icons.add),
                 ),
@@ -296,3 +292,6 @@ class _BmiCalcScreenState extends State<BmiCalcScreen> {
         color: color != null ? color : Color(0xFF252948));
   }
 }
+
+// MVVM
+// MODEL VIEW - VIEW -MODEL
