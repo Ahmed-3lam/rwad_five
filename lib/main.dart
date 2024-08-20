@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:rwad/dummy_projects/counter/cubit/counter_cubit.dart';
 import 'package:rwad/dummy_projects/note/note_hive_helper.dart';
 import 'package:rwad/dummy_projects/note/note_model.dart';
 
-import 'dummy_projects/note/note_screen.dart';
+import 'dummy_projects/counter/counter_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -30,10 +32,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: themeData(),
-      debugShowCheckedModeBanner: false,
-      home: NoteScreen(),
+    return BlocProvider(
+      create: (context) => CounterCubit(),
+      child: GetMaterialApp(
+        theme: themeData(),
+        debugShowCheckedModeBanner: false,
+        home: CounterScreen(),
+      ),
     );
   }
 }
