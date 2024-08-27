@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:rwad/dummy_projects/ecommerce/helpers/KApis.dart';
+import 'package:rwad/dummy_projects/ecommerce/const/KApis.dart';
 
 class DioHelper {
   static late Dio _dio;

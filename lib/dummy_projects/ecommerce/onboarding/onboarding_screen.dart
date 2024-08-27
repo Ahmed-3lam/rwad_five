@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:rwad/dummy_projects/ecommerce/auth/auth_screen.dart';
 import 'package:rwad/dummy_projects/ecommerce/helpers/hive_helper.dart';
 
 import '../../../const.dart';
+import '../auth/screen/auth_screen.dart';
 import 'model/onboarding_model.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -20,11 +20,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       _index++;
       print(_index.toString() + "===========");
     } else {
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => AuthScreen()),
-      //   (Route<dynamic> route) => false,
-      // );
       Get.offAll(AuthScreen());
     }
 

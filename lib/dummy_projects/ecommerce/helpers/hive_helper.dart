@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 
 class HiveHelper {
   static const onboardingBox = "ONBOARDING_BOX";
+  static const token = "TOKEN";
 
   static void setValueInOnboardingBox() {
     Hive.box(onboardingBox).put(onboardingBox, true);
@@ -13,5 +14,18 @@ class HiveHelper {
     } else {
       return true;
     }
+  }
+
+  static void setToken(String tokenParam) {
+    Hive.box(token).put(token, tokenParam);
+  }
+
+  static String? getToken() {
+    if (Hive.box(token).isNotEmpty) {
+      return Hive.box(token).get(
+        token,
+      );
+    }
+    return null;
   }
 }

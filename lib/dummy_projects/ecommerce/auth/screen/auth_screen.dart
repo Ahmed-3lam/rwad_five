@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rwad/const.dart';
-import 'package:rwad/dummy_projects/ecommerce/login/login_screen.dart';
+import 'package:rwad/dummy_projects/ecommerce/auth/screen/register_screen.dart';
 
-import '../const/kcolors.dart';
+import '../../const/kcolors.dart';
+import 'login_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -84,9 +85,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: 20,
                 ),
                 _btn(
-                  text: "Create an account",
-                  isSecond: true,
-                ),
+                    text: "Create an account",
+                    isSecond: true,
+                    onTap: () {
+                      Get.to(RegisterScreen());
+                    }),
               ],
             ),
           )

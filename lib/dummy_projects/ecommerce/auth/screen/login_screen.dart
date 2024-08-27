@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:rwad/const.dart';
-import 'package:rwad/dummy_projects/ecommerce/login/cubit/login_cubit.dart';
-import 'package:rwad/dummy_projects/ecommerce/login/widgets/custom_textfield.dart';
+
+import '../cubit/login_cubit.dart';
+import '../widgets/custom_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
   @override

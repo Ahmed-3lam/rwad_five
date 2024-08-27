@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rwad/const.dart';
-import 'package:rwad/dummy_projects/ecommerce/auth/auth_screen.dart';
 import 'package:rwad/dummy_projects/ecommerce/helpers/hive_helper.dart';
+import 'package:rwad/dummy_projects/ecommerce/main/main_screen.dart';
 import 'package:rwad/dummy_projects/ecommerce/onboarding/onboarding_screen.dart';
+
+import '../auth/screen/auth_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -37,7 +39,11 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 4)).then((val) {
       time.cancel();
       if (HiveHelper.checkOnBoardingValue()) {
-        Get.offAll(AuthScreen());
+        if (HiveHelper.getToken() != null) {
+          Get.offAll(const MainScreen());
+        } else {
+          Get.offAll(AuthScreen());
+        }
       } else {
         Get.offAll(OnboardingScreen());
       }
