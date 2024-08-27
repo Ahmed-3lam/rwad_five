@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rwad/const.dart';
+import 'package:rwad/dummy_projects/ecommerce/auth/auth_screen.dart';
+import 'package:rwad/dummy_projects/ecommerce/helpers/hive_helper.dart';
 import 'package:rwad/dummy_projects/ecommerce/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,15 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
     var time = Timer.periodic(oneSec, (Timer t) => _changeTheme());
     Future.delayed(Duration(seconds: 4)).then((val) {
       time.cancel();
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => OnboardingScreen()),
-      //   (Route<dynamic> route) => false,
-      // );
-      Get.offAll(OnboardingScreen());
+      if (HiveHelper.checkOnBoardingValue()) {
+        Get.offAll(AuthScreen());
+      } else {
+        Get.offAll(OnboardingScreen());
+      }
     });
-    // time.cancel();
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewScreen()));
 
     super.initState();
   }

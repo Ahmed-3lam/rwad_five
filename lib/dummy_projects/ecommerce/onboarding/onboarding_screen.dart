@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rwad/dummy_projects/ecommerce/auth/auth_screen.dart';
+import 'package:rwad/dummy_projects/ecommerce/helpers/hive_helper.dart';
 
 import '../../../const.dart';
 import 'model/onboarding_model.dart';
@@ -28,6 +29,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
 
     setState(() {});
+  }
+
+  @override
+  void initState() {
+    HiveHelper.setValueInOnboardingBox();
+    super.initState();
   }
 
   @override
