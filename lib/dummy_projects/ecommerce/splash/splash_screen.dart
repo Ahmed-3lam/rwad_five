@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       time.cancel();
       if (HiveHelper.checkOnBoardingValue()) {
         if (HiveHelper.getToken() != null) {
-          Get.offAll(const MainScreen());
+          Get.offAll(MainScreen());
         } else {
           Get.offAll(AuthScreen());
         }
