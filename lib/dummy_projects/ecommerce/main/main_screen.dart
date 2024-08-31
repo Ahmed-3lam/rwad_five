@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -52,16 +53,26 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[selectedIndex],
-      bottomNavigationBar: Container(
-        height: 60,
-        width: double.infinity,
-        margin: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: Colors.green, borderRadius: BorderRadius.circular(20)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: navIconList(),
-        ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        items: <Widget>[
+          Icon(
+            Icons.home,
+            size: 30,
+          ),
+          Icon(
+            Icons.person,
+            size: 30,
+          ),
+          Icon(
+            Icons.settings,
+            size: 30,
+          ),
+        ],
+        onTap: (index) {
+          selectedIndex = index;
+          setState(() {});
+        },
       ),
     );
   }
