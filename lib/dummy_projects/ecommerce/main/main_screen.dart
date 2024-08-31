@@ -1,6 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../home/home_screen.dart';
+
 class MainScreen extends StatefulWidget {
   MainScreen({super.key});
 
@@ -17,16 +19,7 @@ class _MainScreenState extends State<MainScreen> {
       ];
 
   final List<Widget> _screens = [
-    Container(
-      child: Center(
-        child: Text(
-          "Home",
-          style: TextStyle(
-            fontSize: 50,
-          ),
-        ),
-      ),
-    ),
+    HomeScreen(),
     Container(
       child: Center(
         child: Text(

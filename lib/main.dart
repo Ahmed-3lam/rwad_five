@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:rwad/dummy_projects/ecommerce/helpers/dio_helper.dart';
 import 'package:rwad/dummy_projects/ecommerce/helpers/hive_helper.dart';
+import 'package:rwad/dummy_projects/ecommerce/home/cubit/home_cubit.dart';
 
 import 'dummy_projects/ecommerce/auth/cubit/login_cubit.dart';
 import 'dummy_projects/ecommerce/splash/splash_screen.dart';
@@ -33,8 +34,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit()
+            ..getBanners()
+            ..getProduct(),
+        ),
+      ],
       child: GetMaterialApp(
         theme: themeData(),
         debugShowCheckedModeBanner: false,

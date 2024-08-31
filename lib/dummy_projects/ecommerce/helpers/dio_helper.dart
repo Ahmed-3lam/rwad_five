@@ -11,7 +11,7 @@ class DioHelper {
         baseUrl: KApis.baseUrl,
         receiveTimeout: const Duration(seconds: 60),
         headers: {
-          "lang": "ar",
+          "lang": "en",
           "Content-Type": "application/json",
         },
       ),
