@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 class HiveHelper {
   static const onboardingBox = "ONBOARDING_BOX";
   static const token = "TOKEN";
+  static const KEY_BOX_APP_LANGUAGE = "KEY_BOX_APP_LANGUAGE";
 
   static void setValueInOnboardingBox() {
     Hive.box(onboardingBox).put(onboardingBox, true);
@@ -27,5 +28,15 @@ class HiveHelper {
       );
     }
     return null;
+  }
+
+  static void setLanguage(String langCode) async {
+    Hive.box(KEY_BOX_APP_LANGUAGE).put(KEY_BOX_APP_LANGUAGE, langCode);
+  }
+
+  static String? getLanguage() {
+    print(
+        "=========" + Hive.box(KEY_BOX_APP_LANGUAGE).get(KEY_BOX_APP_LANGUAGE));
+    return Hive.box(KEY_BOX_APP_LANGUAGE).get(KEY_BOX_APP_LANGUAGE);
   }
 }

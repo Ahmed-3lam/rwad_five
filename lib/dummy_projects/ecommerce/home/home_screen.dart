@@ -1,7 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rwad/dummy_projects/ecommerce/home/cubit/home_cubit.dart';
+import 'package:rwad/dummy_projects/ecommerce/language_cubit/language_cubit.dart';
+
+import '../helpers/dio_helper.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,6 +17,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        leading: InkWell(
+          onTap: () {
+            if (LanguageCubit.isArabic) {
+              context.read<LanguageCubit>().toEnglish();
+            } else {
+              context.read<LanguageCubit>().toArabic();
+            }
+            DioHelper.inint();
+            cubit.getProduct();
+          },
+          child: Icon(
+            Icons.ac_unit_outlined,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -26,7 +45,7 @@ class HomeScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Product Pack",
+                    AppLocalizations.of(context)!.product_pack,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -34,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Spacer(),
                   Text(
-                    "View All",
+                    AppLocalizations.of(context)!.view_all,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.green,

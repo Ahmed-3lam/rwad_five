@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:rwad/dummy_projects/ecommerce/const/KApis.dart';
+import 'package:rwad/dummy_projects/ecommerce/helpers/hive_helper.dart';
 
 class DioHelper {
-  static late Dio _dio;
+  static Dio? _dio;
 
   DioHelper._();
-  static inint() {
+  static void inint() {
     _dio = Dio(
       BaseOptions(
         baseUrl: KApis.baseUrl,
         receiveTimeout: const Duration(seconds: 60),
         headers: {
-          "lang": "en",
+          "lang": HiveHelper.getLanguage(),
           "Content-Type": "application/json",
         },
       ),
@@ -25,7 +26,7 @@ class DioHelper {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
-    final response = await _dio.get(
+    final response = await _dio!.get(
       path,
       queryParameters: queryParameters,
       data: body,
@@ -40,7 +41,7 @@ class DioHelper {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
-    final response = await _dio.post(
+    final response = await _dio!.post(
       path,
       queryParameters: queryParameters,
       data: body,
@@ -55,7 +56,7 @@ class DioHelper {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
-    final response = await _dio.delete(
+    final response = await _dio!.delete(
       path,
       queryParameters: queryParameters,
       data: body,
@@ -70,7 +71,7 @@ class DioHelper {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
-    final response = await _dio.patch(
+    final response = await _dio!.patch(
       path,
       queryParameters: queryParameters,
       data: body,
@@ -85,7 +86,7 @@ class DioHelper {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? body,
   }) async {
-    final response = await _dio.put(
+    final response = await _dio!.put(
       path,
       queryParameters: queryParameters,
       data: body,
